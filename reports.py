@@ -79,12 +79,14 @@ def get_rows_by_date(rows, date_in, date_out):
     :rtype: list
     """
     booking_by_date = []
-    # status_option = ['Canceled','Checked-out']
     for booking in rows:
         if booking[1] >= date_in and booking[1] <= date_out:
             booking_by_date.append(booking)
 
+    return booking_by_date
 
+# rows = import_data('booking.txt')
+# print(get_rows_by_date(rows,'08/15/2022','09/18/2022'))
 
 def children_number_in_date(rows, date, hotel):
     """
@@ -94,8 +96,15 @@ def children_number_in_date(rows, date, hotel):
     :returns: number of chidren
     :rtype: int
     """
-    pass
+    number_of_children = 0
+    for booking in rows:
+        if booking[1] == date and booking[0] == hotel:
+            number_of_children += int(booking[4])
+    
+    return number_of_children
 
+rows = import_data('booking.txt')
+# print(children_number_in_date(rows, '09/20/2022', 'Resort Hotel'))
 
 def display_reservation(rows, date):
     """
@@ -107,4 +116,19 @@ def display_reservation(rows, date):
 
     Please get check out date based on arrival_date and booked nights
     """
+    lenght = 0
+    column_name = ["hotel", "check in","check out","adults","children","babies","status"]
+    reservation = []
+    for row in rows:
+        if row[1] == date:
+            reservation.append(row)
+        for info in row:
+            if len(info) > lenght:
+                lenght = len(info)
+    
+    print(f'{column_name[0].center(lenght)} | {column_name[1].center(lenght)} | {column_name[2].center(lenght)} | {column_name[3].center(lenght)} | {column_name[4].center(lenght)} | {column_name[5].center(lenght)} | {column_name[6].center(lenght)} ')
+    for i in reservation:
+        print(f'{i[0].center(lenght)} | {i[1].center(lenght)} | {column_name[2].center(lenght)} | {column_name[3].center(lenght)} | {column_name[4].center(lenght)} | {column_name[5].center(lenght)} | {column_name[6].center(lenght)} ')
     pass
+
+# display_reservation(rows, '09/20/2022')
