@@ -59,13 +59,16 @@ def get_rows_by_booking_status(rows, status):
     :rtype: list
     """
     booking_by_status = []
-    # status_option = ['Canceled','Checked-out']
     for booking in rows:
         if booking[8] == status:
             booking_by_status.append(booking)
 
     if not len(booking_by_status):
         raise ValueError('Status is not present in list')
+    else:
+        return booking_by_status
+
+    
 
 def get_rows_by_date(rows, date_in, date_out):
     """
@@ -75,7 +78,12 @@ def get_rows_by_date(rows, date_in, date_out):
     :returns: list of booking in date range betwee date_in and date_out
     :rtype: list
     """
-    pass
+    booking_by_date = []
+    # status_option = ['Canceled','Checked-out']
+    for booking in rows:
+        if booking[1] >= date_in and booking[1] <= date_out:
+            booking_by_date.append(booking)
+
 
 
 def children_number_in_date(rows, date, hotel):
